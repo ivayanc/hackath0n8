@@ -1,0 +1,7 @@
+.idea/
+
+backend/.env
+bot/.env
+
+backend/venv
+bot/venv

@@ -12,7 +12,6 @@ class CreateUser(BaseModel):
 class UserDetail(BaseModel):
     id: int
     email: str
-    password: str
     full_name: str
 
 

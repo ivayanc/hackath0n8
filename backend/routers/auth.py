@@ -50,7 +50,7 @@ def login(request_user: LoginUser, db: Session = Depends(get_db)):
 @router.post('/refresh', response_model=Token)
 def refresh(refresh_request: Refresh, db: Session = Depends(get_db)):
     data_token = verify_refresh_token(
-        refresh_request.refresh_token,
+        refresh_request.token,
         HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail='Wrong refresh token'
@@ -63,8 +63,3 @@ def refresh(refresh_request: Refresh, db: Session = Depends(get_db)):
         "access_token": access_token,
         "refresh_token": refresh_token
     }
-
-
-@router.get('/me', response_model=UserDetail)
-async def get_me(user: User = Depends(get_current_user)):
-    return user

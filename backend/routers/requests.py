@@ -77,7 +77,7 @@ async def take_in_progress(request_id: int, user: User = Depends(get_current_use
 
 
 @router.post("/{request_id}/complete", response_model=ReadRequestDTO)
-async def take_in_progress(request_id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+async def complete(request_id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     instance = db.query(Request).filter(
         Request.id == request_id,
         Request.volunteer_id == user.id,

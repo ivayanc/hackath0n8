@@ -24,7 +24,7 @@ async def main() -> None:
     dp.message.middleware(UserToContextMiddleware())
     dp.message.middleware(UpdateUsernameMiddleware())
     dp.message.middleware(AnswerOnlyInPrivateChats())
-    bot = Bot(BOT_TOKEN)
+    bot = Bot(BOT_TOKEN, parse_mode=ParseMode.HTML)
     dp.include_router(main_router)
     await dp.start_polling(bot)
 

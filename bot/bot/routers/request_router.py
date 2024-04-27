@@ -9,7 +9,7 @@ from datetime import datetime
 from database.base import session
 
 from bot.utils.keyboards import RequestKeyboards
-from bot.utils.utils import get_request_types
+from bot.utils.utils import get_request_types, create_request
 from bot.states.request_form import RequestForm
 from configuration import ua_config
 from database.models.user import User
@@ -57,16 +57,31 @@ async def request_text_handler(message: Message, state: FSMContext) -> None:
     text = message.text
     with session() as s:
         user = s.query(User).filter(User.telegram_id == telegram_id).first()
-    await message.bot.send_message(
-        chat_id=message.chat.id,
-        text=f'''
-        {user.full_name}
-{type}
-{text}
-        '''
+    response = await create_request(
+        type=type,
+        text=text,
+        full_name=user.full_name,
+        phone_number=user.phone_number,
+        telegram_id=user.telegram_id
     )
-    with session() as s:
-        user.request_sent = True
-        user.request_id = 2
-        s.add(user)
-        s.commit()
+    request_id = response.get('id')
+    if request_id:
+        with session() as s:
+            user.request_sent = True
+            user.request_id = request_id
+            s.add(user)
+            s.commit()
+        await message.bot.send_message(
+            chat_id=message.chat.id,
+            text=ua_config.get('request_help', 'request_accepted').format(
+                type=type,
+                text=text,
+                full_name=user.full_name,
+                phone_number=user.phone_number
+            )
+        )
+    else:
+        await message.bot.send_message(
+            chat_id=message.chat.id,
+            text=ua_config.get('request_help', 'request_error')
+        )

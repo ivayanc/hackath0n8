@@ -43,9 +43,11 @@ async def request_help_handler(message: Message, state: FSMContext) -> None:
 async def request_type_handler(callback: CallbackQuery, state: FSMContext) -> None:
     await state.update_data(type=callback.data)
     await state.set_state(RequestForm.request_text)
-    await callback.message.bot.send_message(
+    await callback.message.bot.edit_message_text(
         chat_id=callback.message.chat.id,
-        text=ua_config.get('request_help', 'request_text')
+        message_id=callback.message.message_id,
+        text=ua_config.get('request_help', 'request_text'),
+        reply_markup=None
     )
 
 

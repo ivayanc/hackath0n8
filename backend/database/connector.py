@@ -1,8 +1,8 @@
 import logging
 
 from services.singleton import SingletonMeta
-from database.base import session, current_session
-from database.models.user import User
+from backend.database.base import session, current_session
+from backend.database.models.user import User
 
 logger = logging.getLogger(__name__)
 

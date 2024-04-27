@@ -5,8 +5,8 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from configuration import DB_URL
-from database.base import Base
+from backend.configuration import DB_URL
+from backend.database.base import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -18,7 +18,7 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 # ADD MODELS HERE
-from database.models.user import User
+from backend.database.models.user import User
 target_metadata = Base.metadata
 
 config.set_main_option('sqlalchemy.url', DB_URL)

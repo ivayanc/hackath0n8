@@ -5,3 +5,5 @@ bot/.env
 
 backend/venv
 bot/venv
+
+__pycache__/

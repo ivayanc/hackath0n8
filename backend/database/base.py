@@ -5,7 +5,7 @@ from contextlib import contextmanager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker, scoped_session
 
-from configuration import DB_URL
+from backend.configuration import DB_URL
 
 Session = sessionmaker(expire_on_commit=False)
 engine = create_engine(DB_URL, pool_size=15, max_overflow=30)

@@ -13,4 +13,4 @@ class DataToken(BaseModel):
 
 
 class Refresh(BaseModel):
-    refresh_token: str
+    token: str

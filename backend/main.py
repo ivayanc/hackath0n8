@@ -47,7 +47,7 @@ def create_users(user: CreateUser, db: Session = Depends(get_db)):
 
 @app.post('/login', response_model=Token)
 def login(request_user: LoginUser, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.email == request_user.username).first()
+    user = db.query(User).filter(User.email == request_user.email).first()
 
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,

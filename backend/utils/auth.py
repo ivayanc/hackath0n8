@@ -59,6 +59,22 @@ def verify_token_access(token: str, credentials_exception):
     return token_data
 
 
+def verify_refresh_token(token: str, credentials_exception):
+    try:
+        payload = jwt.decode(token, JWT_REFRESH_SECRET_KEY, algorithms=ALGORITHM)
+
+        id: str = payload.get("user_id")
+
+        if id is None:
+            raise credentials_exception
+        token_data = DataToken(id=id)
+    except JWTError as e:
+        print(e)
+        raise credentials_exception
+
+    return token_data
+
+
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                                           detail="Could not Validate Credentials",

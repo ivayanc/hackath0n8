@@ -10,3 +10,7 @@ class Token(BaseModel):
 
 class DataToken(BaseModel):
     id: Optional[int] = None
+
+
+class Refresh(BaseModel):
+    refresh_token: str

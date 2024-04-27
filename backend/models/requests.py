@@ -34,3 +34,8 @@ class ReadRequestDTO(BaseModel):
             phone_number=instance.phone_number,
             status=instance.status
         )
+
+
+class ReadRequestBotDTO(BaseModel):
+    request_id: int
+    secret_key: str

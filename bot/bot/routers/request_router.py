@@ -9,7 +9,7 @@ from datetime import datetime
 from database.base import session
 
 from bot.utils.keyboards import RequestKeyboards
-from bot.utils.utils import get_request_types, create_request
+from bot.utils.utils import get_request_types, create_request, get_request_status
 from bot.states.request_form import RequestForm
 from configuration import ua_config
 from database.models.user import User
@@ -33,9 +33,10 @@ async def request_help_handler(message: Message, state: FSMContext) -> None:
         await state.update_data(user_id=telegram_id)
         await state.set_state(RequestForm.request_type)
     else:
+        request_status = await get_request_status(user.request_id)
         await message.bot.send_message(
             chat_id=message.chat.id,
-            text=ua_config.get('request_help', 'request_already_sent')
+            text=ua_config.get('request_help', 'request_already_sent').format(status=request_status)
         )
 
 
@@ -87,3 +88,4 @@ async def request_text_handler(message: Message, state: FSMContext) -> None:
             chat_id=message.chat.id,
             text=ua_config.get('request_help', 'request_error')
         )
+    await state.clear()

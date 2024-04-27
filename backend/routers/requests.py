@@ -55,7 +55,7 @@ async def bot_get(request: ReadRequestBotDTO, db: Session = Depends(get_db)):
 
 @router.get("/", response_model=list[ReadRequestDTO])
 async def get(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    instances = db.query(Request).all()
+    instances = db.query(Request).filter(Request.status == RequestStatus.NEW.value).all()
     response = [ReadRequestDTO.from_orm(instance) for instance in instances]
     return response
 

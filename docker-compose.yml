@@ -23,6 +23,8 @@ services:
     image: bot-image:dev
     command: >
       sh -c "python main.py"
+    volumes:
+      - ./bot:/bot
     env_file:
       - bot/.env
     depends_on:

@@ -8,19 +8,15 @@ from sqlalchemy.orm import mapped_column
 
 from database.base import Base
 
-from bot.utils.constants import Gender
-
 
 class User(Base):
-    __tablename__ = 'users'
+    __tablename__ = 'telegram_users'
     telegram_id: Mapped[int] = mapped_column(sa.BigInteger(), primary_key=True)
     username: Mapped[Optional[str]]
     full_name: Mapped[Optional[str]]
-    academic_group: Mapped[Optional[str]]
-    instagram: Mapped[Optional[str]]
-    is_banned: Mapped[bool] = mapped_column(default=False)
-    is_admin: Mapped[bool] = mapped_column(default=False)
-    gender: Mapped[Optional[Gender]]
+    phone_number: Mapped[Optional[str]]
+    request_sent: Mapped[bool] = mapped_column(sa.Boolean(), default=False)
+    request_id: Mapped[Optional[int]]
 
     def __repr__(self):
         return f'< Username: {self.username}, Telegram Id: {self.telegram_id} >'

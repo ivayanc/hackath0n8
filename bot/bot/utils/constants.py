@@ -1,8 +1,13 @@
 from enum import Enum
 
 
-class Gender(Enum):
-    male = 1
-    female = 2
-    other_gender = 3
-    nonbinary_gender = 4
+class RequestType(Enum):
+    psychological = 'Психологічна'
+    legal = 'Правова'
+    nutrition = 'Харчування'
+    military = 'Військова'
+    medical = 'Медична'
+    clothing = 'Одяг'
+    baby = 'Дитяча'
+    household = 'Побутові товари'
+    equipments = 'Техніка та інструменти'

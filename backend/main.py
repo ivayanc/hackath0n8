@@ -1,6 +1,7 @@
 import json
 
 from fastapi import FastAPI, HTTPException, status, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
 
@@ -19,6 +20,14 @@ from utils.auth import hash_pass, verify_password, create_access_token, create_r
 
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[""],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post("/requests/create/", status_code=status.HTTP_201_CREATED)

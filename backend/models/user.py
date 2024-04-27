@@ -14,3 +14,8 @@ class UserDetail(BaseModel):
     email: str
     password: str
     full_name: str
+
+
+class LoginUser(BaseModel):
+    email: str
+    password: str

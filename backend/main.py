@@ -3,12 +3,10 @@ import json
 from fastapi import FastAPI, HTTPException, status, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from fastapi.security import OAuth2PasswordRequestForm
 
 from configuration import SECRET_KEY
 
-from models.requests import CreateRequestDTO, ReadRequestDTO
-from models.user import UserDetail, CreateUser
+from models.user import UserDetail, CreateUser, LoginUser
 from models.auth import Token
 
 from database.base import session, Session
@@ -34,35 +32,6 @@ app.add_middleware(
 )
 
 
-@app.post("/requests/create/", status_code=status.HTTP_201_CREATED)
-async def create_request(request: CreateRequestDTO):
-    if request.secret_key == SECRET_KEY:
-        with session() as s:
-            instance = Request(
-                type=request.type,
-                description=request.description,
-                full_name=request.full_name,
-                phone_number=request.phone_number,
-                telegram_id=request.telegram_id
-            )
-            s.add(instance)
-            s.commit()
-
-        return JSONResponse({'id': instance.id}, status_code=status.HTTP_201_CREATED)
-    else:
-        raise HTTPException(status_code=400, detail="Wrong secret key")
-
-
-@app.get('/request/{request_id}/', response_model=ReadRequestDTO)
-async def get_request(request_id: int):
-    with session() as s:
-        instance = s.query(Request).filter(Request.id == request_id).first()
-    if not instance:
-        raise HTTPException(status_code=404)
-    dto = ReadRequestDTO.from_orm(instance)
-    return dto
-
-
 @app.post('/registration', status_code=status.HTTP_201_CREATED, response_model=UserDetail)
 def create_users(user: CreateUser, db: Session = Depends(get_db)):
     hashed_pass = hash_pass(user.password)
@@ -77,7 +46,7 @@ def create_users(user: CreateUser, db: Session = Depends(get_db)):
 
 
 @app.post('/login', response_model=Token)
-def login(request_user: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+def login(request_user: LoginUser, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == request_user.username).first()
 
     if not user:

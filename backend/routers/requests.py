@@ -7,10 +7,12 @@ from configuration import SECRET_KEY
 
 from database.base import Session
 from database.models.request import Request
+from database.models.user import User
 
 from models.requests import CreateRequestDTO, ReadRequestBotDTO, ReadRequestDTO
 
 from utils.database import get_db
+from utils.auth import get_current_user
 
 
 router = APIRouter(
@@ -39,7 +41,7 @@ async def create_request(request: CreateRequestDTO, db: Session = Depends(get_db
 
 
 @router.post('/bot/get_request', response_model=ReadRequestDTO)
-async def get_request(request: ReadRequestBotDTO, db: Session = Depends(get_db)):
+async def bot_get_request(request: ReadRequestBotDTO, db: Session = Depends(get_db)):
     if request.secret_key == SECRET_KEY:
         instance = db.query(Request).filter(Request.id == request.request_id).first()
         if not instance:
@@ -48,3 +50,10 @@ async def get_request(request: ReadRequestBotDTO, db: Session = Depends(get_db))
         return dto
     else:
         raise HTTPException(status_code=400, detail="Wrong secret key")
+
+
+@router.get("/", response_model=list[ReadRequestDTO])
+async def get_requests(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    instances = db.query(Request).all()
+    response = [ReadRequestDTO.from_orm(instance) for instance in instances]
+    return response

@@ -18,21 +18,25 @@ class CreateRequestDTO(BaseModel):
 
 class ReadRequestDTO(BaseModel):
     id: int
-    type: str
+    category: str
     description: str
     full_name: str
     phone_number: str
     status: RequestStatus
+    created_at: str
 
     @staticmethod
     def from_orm(instance: Request) -> ReadRequestDTO:
+        created_at = instance.created_at.strftime('%d.%m.%Y %H:%M')
+
         return ReadRequestDTO(
             id=instance.id,
-            type=instance.type,
+            category=instance.type,
             description=instance.description,
             full_name=instance.full_name,
             phone_number=instance.phone_number,
-            status=instance.status
+            status=instance.status,
+            created_at=created_at
         )
 
 

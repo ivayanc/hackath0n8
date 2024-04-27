@@ -13,6 +13,7 @@ from models.requests import CreateRequestDTO, ReadRequestBotDTO, ReadRequestDTO
 
 from utils.database import get_db
 from utils.auth import get_current_user
+from utils.enums import RequestStatus
 
 
 router = APIRouter(
@@ -41,7 +42,7 @@ async def create_request(request: CreateRequestDTO, db: Session = Depends(get_db
 
 
 @router.post('/bot/get_request', response_model=ReadRequestDTO)
-async def bot_get_request(request: ReadRequestBotDTO, db: Session = Depends(get_db)):
+async def bot_get(request: ReadRequestBotDTO, db: Session = Depends(get_db)):
     if request.secret_key == SECRET_KEY:
         instance = db.query(Request).filter(Request.id == request.request_id).first()
         if not instance:
@@ -53,7 +54,47 @@ async def bot_get_request(request: ReadRequestBotDTO, db: Session = Depends(get_
 
 
 @router.get("/", response_model=list[ReadRequestDTO])
-async def get_requests(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+async def get(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     instances = db.query(Request).all()
+    response = [ReadRequestDTO.from_orm(instance) for instance in instances]
+    return response
+
+
+@router.post("/{request_id}/take_in_progress", response_model=ReadRequestDTO)
+async def take_in_progress(request_id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    instance = db.query(Request).filter(
+        Request.id == request_id,
+        Request.status == RequestStatus.NEW.value
+    ).first()
+    if not instance:
+        raise HTTPException(status_code=404)
+    instance.volunteer_id = user.id
+    instance.status = RequestStatus.IN_PROGRESS.value
+    db.add(instance)
+    db.commit()
+    db.refresh(instance)
+    return ReadRequestDTO.from_orm(instance)
+
+
+@router.post("/{request_id}/complete", response_model=ReadRequestDTO)
+async def take_in_progress(request_id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    instance = db.query(Request).filter(
+        Request.id == request_id,
+        Request.volunteer_id == user.id,
+        Request.status == RequestStatus.IN_PROGRESS.value
+    ).first()
+    if not instance:
+        raise HTTPException(status_code=404)
+    instance.volunteer_id = user.id
+    instance.status = RequestStatus.COMPLETED.value
+    db.add(instance)
+    db.commit()
+    db.refresh(instance)
+    return ReadRequestDTO.from_orm(instance)
+
+
+@router.get("/my", response_model=list[ReadRequestDTO])
+async def get_my(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    instances = db.query(Request).filter(Request.volunteer_id == user.id).all()
     response = [ReadRequestDTO.from_orm(instance) for instance in instances]
     return response

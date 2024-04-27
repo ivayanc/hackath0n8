@@ -24,4 +24,4 @@ COPY . $APP_HOME
 
 # RUN chmod 777 ./parse.session
 
-CMD ["python", "main.py"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -9,7 +9,7 @@ from database.base import Session
 from database.models.request import Request
 from database.models.user import User
 
-from models.requests import CreateRequestDTO, ReadRequestBotDTO, ReadRequestDTO
+from models.requests import CreateRequestDTO, ReadRequestBotDTO, ReadMyRequestDTO, ReadRequestDTO
 
 from utils.database import get_db
 from utils.auth import get_current_user
@@ -41,13 +41,13 @@ async def create_request(request: CreateRequestDTO, db: Session = Depends(get_db
         raise HTTPException(status_code=400, detail="Wrong secret key")
 
 
-@router.post('/bot/get_request', response_model=ReadRequestDTO)
+@router.post('/bot/get_request', response_model=ReadMyRequestDTO)
 async def bot_get(request: ReadRequestBotDTO, db: Session = Depends(get_db)):
     if request.secret_key == SECRET_KEY:
         instance = db.query(Request).filter(Request.id == request.request_id).first()
         if not instance:
             raise HTTPException(status_code=404)
-        dto = ReadRequestDTO.from_orm(instance)
+        dto = ReadMyRequestDTO.from_orm(instance)
         return dto
     else:
         raise HTTPException(status_code=400, detail="Wrong secret key")
@@ -60,7 +60,7 @@ async def get(user: User = Depends(get_current_user), db: Session = Depends(get_
     return response
 
 
-@router.post("/{request_id}/take_in_progress", response_model=ReadRequestDTO)
+@router.post("/{request_id}/take_in_progress", response_model=ReadMyRequestDTO)
 async def take_in_progress(request_id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     instance = db.query(Request).filter(
         Request.id == request_id,
@@ -73,10 +73,10 @@ async def take_in_progress(request_id: int, user: User = Depends(get_current_use
     db.add(instance)
     db.commit()
     db.refresh(instance)
-    return ReadRequestDTO.from_orm(instance)
+    return ReadMyRequestDTO.from_orm(instance)
 
 
-@router.post("/{request_id}/complete", response_model=ReadRequestDTO)
+@router.post("/{request_id}/complete", response_model=ReadMyRequestDTO)
 async def complete(request_id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     instance = db.query(Request).filter(
         Request.id == request_id,
@@ -90,11 +90,11 @@ async def complete(request_id: int, user: User = Depends(get_current_user), db: 
     db.add(instance)
     db.commit()
     db.refresh(instance)
-    return ReadRequestDTO.from_orm(instance)
+    return ReadMyRequestDTO.from_orm(instance)
 
 
-@router.get("/my", response_model=list[ReadRequestDTO])
+@router.get("/my", response_model=list[ReadMyRequestDTO])
 async def get_my(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     instances = db.query(Request).filter(Request.volunteer_id == user.id).all()
-    response = [ReadRequestDTO.from_orm(instance) for instance in instances]
+    response = [ReadMyRequestDTO.from_orm(instance) for instance in instances]
     return response

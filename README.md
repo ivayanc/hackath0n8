@@ -57,6 +57,9 @@
 ### Можливість повної кастомізації
 ![image](https://github.com/ivayanc/hackath0n8/assets/41695655/04e0a18a-0063-45e7-b426-ceca5c3ac373)
 
+### Особистий профіль волонтера
+![image](https://github.com/ivayanc/hackath0n8/assets/41695655/7cc9b8f1-52d1-45d8-baa7-588bef73b8b7)
+
 
 ### Тестування
 Застосунок доступний для тестування за [посиланням](http://34.65.67.249/login)<br/>

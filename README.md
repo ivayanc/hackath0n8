@@ -28,7 +28,7 @@
 
 ## Веб-версія для волонтерів
 ### Авторизація
-![image](https://github.com/ivayanc/hackath0n8/assets/41695655/7954f3a7-fa26-4082-856d-c02b32d6467b)
+![image](https://github.com/ivayanc/hackath0n8/assets/41695655/c8285f7a-3437-4498-9120-74594daa8cd6)
 
 ### Зручний дашборд
 ![image](https://github.com/ivayanc/hackath0n8/assets/41695655/66321524-8cb8-4b24-b64b-86ce771dcfad)
@@ -40,16 +40,16 @@
 </ol>
 
 ### Нові запити
-![image](https://github.com/ivayanc/hackath0n8/assets/41695655/9da6c7b1-0595-45b7-9ae2-507e047c7963)
-![image](https://github.com/ivayanc/hackath0n8/assets/41695655/6a073528-870b-4a19-afd5-594d58db94c5)
+![image](https://github.com/ivayanc/hackath0n8/assets/41695655/ed6bb2e2-a330-4796-9c08-302476a3333d)
+![image](https://github.com/ivayanc/hackath0n8/assets/41695655/1259a5f5-e1c4-4382-a089-ed246ed058ea)
 Можливість для перегляду нових запитів та взяття їх в роботу
 Після взяття в опрацювання, людині, що створила запит, приходить оповіщення в бота<br/>
 ![image](https://github.com/ivayanc/hackath0n8/assets/41695655/e55657d6-6651-40d1-8153-c0986bb2330b)
 
 ### Мої запити
-![image](https://github.com/ivayanc/hackath0n8/assets/41695655/ec4ab295-7057-4b5a-9229-cf43112e13dd)
-![image](https://github.com/ivayanc/hackath0n8/assets/41695655/b6770307-fe26-43ce-b3bd-26b053f99a3e)
-![image](https://github.com/ivayanc/hackath0n8/assets/41695655/aeebec58-e875-4d0d-942b-052c313ac30f)
+![image](https://github.com/ivayanc/hackath0n8/assets/41695655/9583637a-561c-4318-8a8d-3c3411ad2bf2)
+![image](https://github.com/ivayanc/hackath0n8/assets/41695655/ee64f1e1-366d-4144-975b-006c2c5ca588)
+![image](https://github.com/ivayanc/hackath0n8/assets/41695655/54b558c5-677c-4885-8b30-2b639bdeee1b)
 Можливість для перегляду своїх запитів і їх обробки
 Після закінчення запиту, людині приходить оповіщення в телеграм і вона отримує змогу створити новий запит<br/>
 ![image](https://github.com/ivayanc/hackath0n8/assets/41695655/3a02cdea-55f6-4d4b-9f02-838c19ed04e7)

@@ -17,6 +17,7 @@ class User(Base):
     phone_number: Mapped[Optional[str]]
     request_sent: Mapped[bool] = mapped_column(sa.Boolean(), default=False)
     request_id: Mapped[Optional[int]]
+    request_in_progress: Mapped[bool] = mapped_column(sa.Boolean(), default=False)
 
     def __repr__(self):
         return f'< Username: {self.username}, Telegram Id: {self.telegram_id} >'

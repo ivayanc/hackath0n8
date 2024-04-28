@@ -14,7 +14,7 @@ from models.requests import CreateRequestDTO, ReadRequestBotDTO, ReadMyRequestDT
 from utils.database import get_db
 from utils.auth import get_current_user
 from utils.enums import RequestStatus
-
+from utils.redis import publish_request_update
 
 router = APIRouter(
     prefix='/requests',
@@ -73,6 +73,7 @@ async def take_in_progress(request_id: int, user: User = Depends(get_current_use
     db.add(instance)
     db.commit()
     db.refresh(instance)
+    await publish_request_update(request_id, instance.status, user.full_name)
     return ReadMyRequestDTO.from_orm(instance)
 
 
@@ -90,6 +91,7 @@ async def complete(request_id: int, user: User = Depends(get_current_user), db: 
     db.add(instance)
     db.commit()
     db.refresh(instance)
+    await publish_request_update(request_id, instance.status)
     return ReadMyRequestDTO.from_orm(instance)
 
 

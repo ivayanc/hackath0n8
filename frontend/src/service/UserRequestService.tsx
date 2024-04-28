@@ -1,6 +1,7 @@
 import { axiosInstance } from '@/http/api';
 import type { Dashboard } from '@/types/dashboard';
 import type { UserRequest } from '@/types/user-request';
+import {UserProfile} from "@/types/user-profile";
 
 export const UserRequestService = {
   async getUserRequestAll() {
@@ -11,6 +12,15 @@ export const UserRequestService = {
         throw new Error(`Failed to fetch user requests: ${error.message}`);
       });
   },
+
+    async getUserProfile() {
+        return axiosInstance
+            .get<UserProfile>('/profile/')
+            .then(response => response.data)
+            .catch(error => {
+                throw new Error(`Failed to fetch user requests: ${error.message}`);
+            });
+    },
 
   async startRequestProcessing({ requestId }: { requestId: string }) {
     axiosInstance

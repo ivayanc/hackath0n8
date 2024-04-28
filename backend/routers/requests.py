@@ -60,7 +60,7 @@ async def get(user: User = Depends(get_current_user), db: Session = Depends(get_
     return response
 
 
-@router.post("/{request_id}/take_in_progress", response_model=ReadMyRequestDTO)
+@router.post("/{request_id}/take_in_progress/", response_model=ReadMyRequestDTO)
 async def take_in_progress(request_id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     instance = db.query(Request).filter(
         Request.id == request_id,
@@ -77,7 +77,7 @@ async def take_in_progress(request_id: int, user: User = Depends(get_current_use
     return ReadMyRequestDTO.from_orm(instance)
 
 
-@router.post("/{request_id}/complete", response_model=ReadMyRequestDTO)
+@router.post("/{request_id}/complete/", response_model=ReadMyRequestDTO)
 async def complete(request_id: int, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     instance = db.query(Request).filter(
         Request.id == request_id,
@@ -95,7 +95,7 @@ async def complete(request_id: int, user: User = Depends(get_current_user), db: 
     return ReadMyRequestDTO.from_orm(instance)
 
 
-@router.get("/my", response_model=list[ReadMyRequestDTO])
+@router.get("/my/", response_model=list[ReadMyRequestDTO])
 async def get_my(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     instances = db.query(Request).filter(Request.volunteer_id == user.id).all()
     response = [ReadMyRequestDTO.from_orm(instance) for instance in instances]

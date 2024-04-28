@@ -1,2 +1,2 @@
-# hackath0n8
-hackath0n8
+# Хелпарик
+## Проєкт від команди Humandebs для Hackath0n8

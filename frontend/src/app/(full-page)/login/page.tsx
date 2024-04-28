@@ -53,7 +53,7 @@ const LoginPage = () => {
             style={{ borderRadius: '53px' }}
           >
             <div className="mb-5 text-center">
-              <span className="text-600 font-medium">Sign in to continue</span>
+              <span className="text-600 font-medium">Авторизуйтесь для продовження</span>
             </div>
 
             <div>
@@ -68,7 +68,7 @@ const LoginPage = () => {
                 type="text"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder="Email address"
+                placeholder="Email адреса"
                 className="md:w-30rem mb-5 w-full"
                 style={{ padding: '1rem' }}
               />
@@ -77,13 +77,13 @@ const LoginPage = () => {
                 htmlFor="password1"
                 className="text-900 mb-2 block text-xl font-medium"
               >
-                Password
+                Пароль
               </label>
               <Password
                 inputId="password1"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                placeholder="Password"
+                placeholder="Пароль"
                 toggleMask
                 className="mb-5 w-full"
                 inputClassName="w-full p-3 md:w-30rem"
@@ -94,7 +94,7 @@ const LoginPage = () => {
                 <div className="align-items-center flex" />
               </div>
               <Button
-                label="Sign In"
+                label="Авторизуватись"
                 className="w-full p-3 text-xl"
                 onClick={handleSubmit}
               />

@@ -24,7 +24,7 @@ export const UserRequestService = {
 
   async startRequestProcessing({ requestId }: { requestId: string }) {
     axiosInstance
-      .post(`/requests/${requestId}/take_in_progress`)
+      .post(`/requests/${requestId}/take_in_progress/`)
       .then()
       .catch(error => {
         throw new Error(`Failed to fetch user requests: ${error.message}`);
@@ -33,7 +33,7 @@ export const UserRequestService = {
 
   async completeRequest({ requestId }: { requestId: string }) {
     axiosInstance
-      .post(`/requests/${requestId}/complete`)
+      .post(`/requests/${requestId}/complete/`)
       .then()
       .catch(error => {
         throw new Error(`Failed to fetch user requests: ${error.message}`);
@@ -42,7 +42,7 @@ export const UserRequestService = {
 
   async getMyUserRequestAll() {
     return axiosInstance
-      .get<UserRequest[]>('/requests/my')
+      .get<UserRequest[]>('/requests/my/')
       .then(response => response.data)
       .catch(error => {
         throw new Error(`Failed to fetch user requests: ${error.message}`);
@@ -51,7 +51,7 @@ export const UserRequestService = {
 
   async getDashboard() {
     return axiosInstance
-      .get<Dashboard>('/dashboard')
+      .get<Dashboard>('/dashboard/')
       .then(response => response.data)
       .catch(error => {
         throw new Error(`Failed to fetch user requests: ${error.message}`);

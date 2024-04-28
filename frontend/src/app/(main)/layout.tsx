@@ -7,17 +7,17 @@ interface AppLayoutProps {
 }
 
 export const metadata: Metadata = {
-  title: 'PrimeReact Sakai',
+  title: `${process.env.NEXT_PUBLIC_PROJECT_NAME}`,
   description:
-    'The ultimate collection of design-agnostic, flexible and accessible React UI Components.',
+    'Найзручніший сервіс для взаємодії людей з волонтерами.',
   robots: { index: false, follow: false },
   viewport: { initialScale: 1, width: 'device-width' },
   openGraph: {
     type: 'website',
-    title: 'PrimeReact SAKAI-REACT',
-    url: 'https://sakai.primereact.org/',
+    title: `${process.env.NEXT_PUBLIC_PROJECT_NAME}`,
+    url: `${process.env.FRONTEND_URL}`,
     description:
-      'The ultimate collection of design-agnostic, flexible and accessible React UI Components.',
+      'Найзручніший сервіс для взаємодії людей з волонтерами.',
     images: ['https://www.primefaces.org/static/social/sakai-react.png'],
     ttl: 604800
   },

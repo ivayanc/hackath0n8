@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from routers.requests import router as requests_router
 from routers.auth import router as auth_router
 from routers.dashboard import router as dashboard_router
+from routers.profile import router as profile_router
 
 from configuration import ORIGINS
 
@@ -20,3 +21,4 @@ app.add_middleware(
 app.include_router(requests_router)
 app.include_router(auth_router)
 app.include_router(dashboard_router)
+app.include_router(profile_router)

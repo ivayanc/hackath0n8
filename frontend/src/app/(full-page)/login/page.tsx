@@ -87,6 +87,7 @@ const LoginPage = () => {
                 toggleMask
                 className="mb-5 w-full"
                 inputClassName="w-full p-3 md:w-30rem"
+                feedback={false}
               />
 
               <div className="align-items-center justify-content-between mb-5 flex gap-5">

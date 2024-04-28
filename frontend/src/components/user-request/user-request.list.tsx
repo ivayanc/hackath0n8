@@ -118,8 +118,8 @@ export default function UserRequestList({
   const shortDescription = (longDescription: string) => {
     return (
       <span className="font-semibold">
-        {longDescription.length > 40
-          ? `${longDescription.slice(0, 40)}...`
+        {longDescription.length > 30
+          ? `${longDescription.slice(0, 30)}...`
           : longDescription}
       </span>
     );

@@ -7,9 +7,9 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { LayoutContext } from '@/layout/context/layoutcontext';
 import UserRequestService from '@/service/UserRequestService';
-import { Dashboard } from '@/types/dashboard';
+import type { Dashboard } from '@/types/dashboard';
 
-const Dashboard = () => {
+const DashboardPage = () => {
   const [lineOptions, setLineOptions] = useState<ChartOptions>({});
   const { layoutConfig } = useContext(LayoutContext);
   const [dashboard, setDashboard] = useState<Dashboard>({});
@@ -238,4 +238,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;

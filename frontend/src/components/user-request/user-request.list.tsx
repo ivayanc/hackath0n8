@@ -319,6 +319,7 @@ export default function UserRequestList({
             sortField={sortField}
             itemTemplate={itemTemplate}
             header={dataViewHeader}
+            emptyMessage={""}
           />
         </div>
       </div>

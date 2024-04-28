@@ -22,7 +22,7 @@ router = APIRouter(
 )
 
 
-@router.post("/create", status_code=status.HTTP_201_CREATED)
+@router.post("/create/", status_code=status.HTTP_201_CREATED)
 async def create_request(request: CreateRequestDTO, db: Session = Depends(get_db)):
     if request.secret_key == SECRET_KEY:
         instance = Request(
@@ -41,7 +41,7 @@ async def create_request(request: CreateRequestDTO, db: Session = Depends(get_db
         raise HTTPException(status_code=400, detail="Wrong secret key")
 
 
-@router.post('/bot/get_request', response_model=ReadMyRequestDTO)
+@router.post('/bot/get_request/', response_model=ReadMyRequestDTO)
 async def bot_get(request: ReadRequestBotDTO, db: Session = Depends(get_db)):
     if request.secret_key == SECRET_KEY:
         instance = db.query(Request).filter(Request.id == request.request_id).first()

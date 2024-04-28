@@ -32,7 +32,7 @@ export default function Page(){
         <Card>
 
             <div className="flex-column align-items-center flex flex-1 text-center md:text-left">
-                <img src="/demo/images/profile-svgrepo-com.svg"/>
+                <img src="/demo/images/profile-svgrepo-com.svg" className="mb-5 w-6rem flex-shrink-0"/>
                 <div className="text-2xl font-bold">{userProfile.full_name}</div>
                 <div className="mb-2">{userProfile.email}</div>
                 <div className="align-items-center flex">

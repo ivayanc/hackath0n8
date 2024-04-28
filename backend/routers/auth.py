@@ -15,7 +15,7 @@ router = APIRouter(
 )
 
 
-@router.post('/registration', status_code=status.HTTP_201_CREATED, response_model=UserDetail)
+@router.post('/registration/', status_code=status.HTTP_201_CREATED, response_model=UserDetail)
 def create_users(user: CreateUser, db: Session = Depends(get_db)):
     hashed_pass = hash_pass(user.password)
     user.password = hashed_pass
@@ -28,7 +28,7 @@ def create_users(user: CreateUser, db: Session = Depends(get_db)):
     return new_user
 
 
-@router.post('/login', response_model=Token)
+@router.post('/login/', response_model=Token)
 def login(request_user: LoginUser, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == request_user.email).first()
 
@@ -47,7 +47,7 @@ def login(request_user: LoginUser, db: Session = Depends(get_db)):
     }
 
 
-@router.post('/refresh', response_model=Token)
+@router.post('/refresh/', response_model=Token)
 def refresh(refresh_request: Refresh, db: Session = Depends(get_db)):
     data_token = verify_refresh_token(
         refresh_request.token,

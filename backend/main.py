@@ -5,16 +5,13 @@ from routers.requests import router as requests_router
 from routers.auth import router as auth_router
 from routers.dashboard import router as dashboard_router
 
-app = FastAPI()
+from configuration import ORIGINS
 
-origins = [
-    "http://localhost:3000",
-    "http://frontend:3000"
-]
+app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
